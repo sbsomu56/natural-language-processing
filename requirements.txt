@@ -1,0 +1,14 @@
+nltk==3.9.1
+langchain
+langchain_community
+pypdf
+bs4
+ipykernel
+langchain_text_splitters
+lxml
+faiss-cpu
+langchain_groq
+fastapi
+uvicorn
+langserve
+sse_starlette
