@@ -17,3 +17,9 @@ datasets
 tiktoken
 langchain-ollama
 PyPDF2
+streamlit
+validators
+youtube-transcript-api
+pytube
+unstructured
+watchdog
