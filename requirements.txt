@@ -23,3 +23,7 @@ youtube-transcript-api
 pytube
 unstructured
 watchdog
+
+# crew_ai tutorial
+crewai
+crewai_tools

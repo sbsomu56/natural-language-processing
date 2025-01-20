@@ -12,8 +12,6 @@ st.set_page_config(page_title="LangChain: Summarize Text From YT or Website", pa
 st.title("🦜 LangChain: Summarize Text From YT or Website")
 st.subheader('Summarize URL')
 
-
-
 ## Get the Groq API Key and url(YT or website)to be summarized
 with st.sidebar:
     groq_api_key=st.text_input("Groq API Key",value="",type="password")
@@ -29,6 +27,11 @@ Provide a summary of the following content in 300 words:
 Content: {text}
 
 """
+# prompt_template="""
+# Based on the content, tell me information FII and DII buy, sell and net figures:
+# Content: {text}
+
+# """
 prompt=PromptTemplate(template=prompt_template,input_variables=["text"])
 
 if st.button("Summarize the Content from YT or Website"):
