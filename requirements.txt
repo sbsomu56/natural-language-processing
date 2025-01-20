@@ -23,7 +23,7 @@ youtube-transcript-api
 pytube
 unstructured
 watchdog
-
+svgling
 # crew_ai tutorial
 crewai
 crewai_tools
