@@ -27,3 +27,9 @@ svgling
 # crew_ai tutorial
 crewai
 crewai_tools
+
+langgraph
+langsmith
+
+pandasql
+ollama
