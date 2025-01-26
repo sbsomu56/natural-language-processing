@@ -8,6 +8,8 @@ from langchain_groq import ChatGroq
 import re
 from ollama import Client
 
+groq_api_key = st.secrets["groq"]["api_key"]
+
 client = Client(
   host='http://localhost:11434',
   headers={'x-some-header': 'some-value'})
@@ -56,7 +58,7 @@ if llm_provider == "Groq":
     )
 
     # Input API Key
-    api_key = st.sidebar.text_input("Enter Groq API Key", type="password",value="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")
+    api_key = st.sidebar.text_input("Enter Groq API Key", type="password",value=groq_api_key)
     # Model Dropdown
     selected_model = st.sidebar.selectbox("Select a Groq Model", GROQ_MODELS)
 else:
@@ -89,6 +91,11 @@ if uploaded_file is not None:
         # Show updated data preview
         st.write("### Updated File Preview:")
         st.write(transaction_df.head())
+
+        # Display data types
+        st.write("### Column Data Types:")
+        st.write(transaction_df.dtypes.astype(str).to_frame(name="Data Type").T)
+
 
         # Provide option to download updated dataset
         csv_data = transaction_df.to_csv(index=False).encode('utf-8')
@@ -138,23 +145,36 @@ if uploaded_file is not None:
                 chain = prompt | llm | parser
 
                 # Generate SQL Query
-                try:
-                    query = chain.invoke({
-                        "col_names": col_names,
-                        "text": user_request,
-                    })
-                    st.write("### Generated SQL Query:")
-                    st.code(query, language="sql")
+                if "generated_query" not in st.session_state:
+                    st.session_state.generated_query = None
 
-                    # Execute SQL Query
+                if st.button("Generate Query"):
                     try:
-                        df = transaction_df
-                        result = ps.sqldf(query, locals())
-                        st.write("### Query Results:")
-                        st.dataframe(result)
+                        query = chain.invoke({
+                            "col_names": col_names,
+                            "text": user_request,
+                        })
+                        st.session_state.generated_query = query
+                        st.success("SQL query generated successfully!")
                     except Exception as e:
-                        st.error(f"Error executing SQL query: {e}")
-                except Exception as e:
-                    st.error(f"Error generating SQL query: {e}")
+                        st.error(f"Error generating SQL query: {e}")
+                # Editable Query Text Area
+                if st.session_state.generated_query:
+                    st.write("### Generated SQL Query:")
+                    edited_query = st.text_area(
+                        "Edit the generated SQL query if needed:",
+                        value=st.session_state.generated_query,
+                        key="edited_query",
+                        height=150,
+                    )
+
+                    # Execute Edited Query
+                    if st.button("Execute Query"):
+                        try:
+                            result = ps.sqldf(edited_query, {"df": transaction_df})
+                            st.write("### Query Results:")
+                            st.dataframe(result)
+                        except Exception as e:
+                            st.error(f"Error executing SQL query: {e}")
     except Exception as e:
         st.error(f"Error processing the file: {e}")
