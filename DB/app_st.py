@@ -10,11 +10,14 @@ from ollama import Client
 
 groq_api_key = st.secrets["groq"]["api_key"]
 
-client = Client(
-  host='http://localhost:11434',
-  headers={'x-some-header': 'some-value'})
-model_list = client.list()
-OLLAMA_MODEL_LIST = [model['model'] for model in model_list['models']]
+try:
+    client = Client(
+    host='http://localhost:11434',
+    headers={'x-some-header': 'some-value'})
+    model_list = client.list()
+    OLLAMA_MODEL_LIST = [model['model'] for model in model_list['models']]
+except:
+    OLLAMA_MODEL_LIST = ['llama3.2:latest']
 
 def remove_special_characters(input_string):
     # Use regex to remove non-alphanumeric characters and spaces
