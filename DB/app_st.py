@@ -65,6 +65,11 @@ if llm_provider == "Groq":
     # Model Dropdown
     selected_model = st.sidebar.selectbox("Select a Groq Model", GROQ_MODELS)
 else:
+    st.sidebar.info(
+        """
+        **Note**: If you are running this in cloud then this opion will not be accessible.
+        """
+    )
     # selected_model = st.sidebar.text_input("Enter Ollama Model Name", value="llama3.2")
     selected_model = st.sidebar.selectbox("Enter Ollama Model Name", OLLAMA_MODEL_LIST)
 
