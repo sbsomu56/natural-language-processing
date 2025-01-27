@@ -27,15 +27,10 @@ def remove_special_characters(input_string):
 # List of Groq models (from the screenshot)
 GROQ_MODELS = [
     "gemma2-9b-it",
-    "distil-whisper-large-v3-en",
-    "llama-3.1-8b-instant",
-    "llama-3.2-11b-vision-preview",
+    "mixtral-8x7b-32768",
+    "deepseek-r1-distill-llama-70b",
     "llama-3.2-1b-preview",
     "llama-3.2-3b-preview",
-    "llama-3.2-90b-vision-preview",
-    "llama-3.3-70b-specdec",
-    "llama-3.3-70b-versatile",
-    "llama-guard-3-8b",
     "llama-3-70b-8192",
     "llama-3-8b-8192",
 ]
