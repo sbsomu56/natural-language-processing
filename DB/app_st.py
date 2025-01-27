@@ -79,7 +79,7 @@ if uploaded_file is not None:
         st.write("### Original File Preview:")
         st.write(transaction_df.head())
 
-        # Clean column names
+        # Clean column names:
         original_columns = transaction_df.columns.tolist()
         transaction_df.columns = [remove_special_characters(col.replace(" ", "_")) for col in transaction_df.columns]
         col_names = ','.join(transaction_df.columns)
