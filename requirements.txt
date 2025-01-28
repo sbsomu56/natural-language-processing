@@ -33,3 +33,15 @@ langsmith
 
 pandasql
 ollama
+
+
+# ANN:
+tensorflow
+pandas
+numpy
+scikit-learn
+tensorboard
+matplotlib
+
+arxiv
+wikipedia
